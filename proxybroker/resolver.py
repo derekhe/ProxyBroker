@@ -65,11 +65,11 @@ class Resolver:
             with aiohttp.Timeout(self._timeout, loop=self._loop):
                 async with aiohttp.ClientSession(loop=self._loop) as session,\
                         session.get('http://ifconfig.io/ip') as resp:
-                    data = await resp.json()
+                    data = await resp.text()
         except asyncio.TimeoutError as e:
             raise RuntimeError('Could not get a external IP. Error: %s' % e)
         else:
-            ip = data['origin'].split(', ')[0]
+            ip = data
             log.debug('Real external IP: %s' % ip)
         return ip
 
