@@ -61,7 +61,7 @@ class Resolver:
 
     async def get_real_ext_ip(self):
         """Return real external IP address."""
-        if 'REAL_IP' in os.environ:
+        if 'IP' in os.environ:
             return os.environ['IP']
         
         try:
