@@ -3,7 +3,7 @@ import asyncio
 import os.path
 import ipaddress
 from collections import namedtuple
-
+import os
 import aiodns
 import aiohttp
 import maxminddb
@@ -61,6 +61,9 @@ class Resolver:
 
     async def get_real_ext_ip(self):
         """Return real external IP address."""
+        if 'REAL_IP' in os.environ:
+            return os.environ['IP']
+        
         try:
             with aiohttp.Timeout(self._timeout, loop=self._loop):
                 async with aiohttp.ClientSession(loop=self._loop) as session,\
